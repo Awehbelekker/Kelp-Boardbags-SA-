@@ -4,10 +4,12 @@ import Link from "next/link"
 import { ShoppingCart, User, Search, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { mainNav } from "@/config/navigation"
+import { useCart } from "@/hooks/use-cart"
 import { useState } from "react"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { itemCount } = useCart()
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -54,9 +56,11 @@ export function Header() {
             <Link href="/cart">
               <Button variant="ghost" size="icon" className="relative" aria-label="Shopping cart">
                 <ShoppingCart className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-kelp-green text-white text-xs flex items-center justify-center">
-                  0
-                </span>
+                {itemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-kelp-green text-white text-xs flex items-center justify-center">
+                    {itemCount}
+                  </span>
+                )}
               </Button>
             </Link>
 

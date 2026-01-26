@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { verifyStripeWebhook, processStripeWebhook } from '@/lib/stripe'
+import { sendOrderConfirmationEmail } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
@@ -32,14 +33,30 @@ export async function POST(request: NextRequest) {
           status: result.status,
         },
       },
+      include: {
+        items: {
+          include: {
+            product: {
+              include: {
+                images: true,
+              },
+            },
+          },
+        },
+      },
     })
 
     console.log('Order updated:', order.orderNumber, 'Status:', order.paymentStatus)
 
-    // TODO: Send order confirmation email with invoice
-    // if (result.status === 'succeeded') {
-    //   await sendOrderConfirmationEmail(order)
-    // }
+    // Send order confirmation email with invoice
+    if (result.status === 'succeeded') {
+      const emailResult = await sendOrderConfirmationEmail(order as any)
+      if (!emailResult.success) {
+        console.error('Failed to send confirmation email:', emailResult.error)
+      } else {
+        console.log('Confirmation email sent successfully')
+      }
+    }
 
     return NextResponse.json({ received: true })
   } catch (error) {

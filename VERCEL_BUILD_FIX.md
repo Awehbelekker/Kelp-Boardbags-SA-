@@ -13,16 +13,35 @@ The build is likely failing because required environment variables are not set.
 
 ## ✅ Step-by-Step Fix
 
-### Step 1: Fix Root Directory
+### Step 1: Fix Root Directory & Build Settings
 
 1. Go to **Vercel Dashboard**
 2. Select your **Kelp Board Bags** project
 3. Go to **Settings** → **General**
 4. Scroll to **Build & Development Settings**
-5. Find **Root Directory**
-6. Change from: `kelp-board-bag`
-7. Change to: `kelp-board-bags` ⬅️ **Add the 's'**
-8. Click **Save**
+
+**Configure these settings:**
+
+**Root Directory:**
+- Change from: `kelp-board-bag`
+- Change to: `kelp-board-bags` ⬅️ **Add the 's'**
+
+**Framework Preset:**
+- Select: `Next.js`
+
+**Build Command:**
+- Leave empty (uses package.json script)
+
+**Output Directory:**
+- Leave empty (uses .next default)
+
+**Install Command:**
+- Leave empty (uses npm install)
+
+**Include source files outside of the Root Directory in the Build Step:**
+- ✅ **Check this box** (IMPORTANT!)
+
+5. Click **Save**
 
 ### Step 2: Add Required Environment Variables
 
@@ -118,14 +137,16 @@ openssl rand -base64 32
 
 ## 📋 Vercel Settings Checklist
 
-### General Settings
-- [x] **Framework Preset:** Next.js
-- [x] **Root Directory:** `kelp-board-bags` ⬅️ **CRITICAL**
-- [x] **Build Command:** (leave empty, uses package.json)
-- [x] **Output Directory:** (leave empty, uses .next)
-- [x] **Install Command:** (leave empty, uses npm install)
+### General Settings (Settings → General → Build & Development Settings)
+- [ ] **Framework Preset:** Next.js ⬅️ **MUST SELECT**
+- [ ] **Root Directory:** `kelp-board-bags` ⬅️ **CRITICAL - Add the 's'**
+- [ ] **Build Command:** (leave empty)
+- [ ] **Output Directory:** (leave empty)
+- [ ] **Install Command:** (leave empty)
+- [ ] **Include source files outside Root Directory:** ✅ **MUST CHECK THIS BOX**
 
-### Environment Variables (Minimum Required)
+### Environment Variables (Settings → Environment Variables)
+**Minimum Required:**
 - [ ] DATABASE_URL
 - [ ] NEXTAUTH_URL
 - [ ] NEXTAUTH_SECRET
@@ -135,10 +156,14 @@ openssl rand -base64 32
 - [ ] EMAIL_FROM
 - [ ] NEXT_PUBLIC_URL
 
-### Deployment Settings
-- [x] **Production Branch:** main
-- [x] **Automatically deploy:** Yes
-- [x] **Include source files outside Root Directory:** Yes ⬅️ **Check this**
+**Apply to:**
+- [x] Production
+- [x] Preview
+- [x] Development
+
+### Deployment Settings (Settings → Git)
+- [ ] **Production Branch:** main
+- [ ] **Automatically deploy:** Yes
 
 ---
 

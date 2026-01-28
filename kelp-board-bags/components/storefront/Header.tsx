@@ -31,9 +31,9 @@ export function Header() {
             <Image
               src="/logo.svg"
               alt="Kelp Board Bags"
-              width={300}
-              height={100}
-              className="h-20 w-auto text-kelp-green"
+              width={400}
+              height={133}
+              className="h-28 w-auto text-kelp-green"
               priority
             />
           </Link>

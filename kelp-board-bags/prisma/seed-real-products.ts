@@ -392,11 +392,22 @@ Add this to your cart for national shipping.`,
   ]
 
   console.log('✅ Starting product creation...')
-  
+
   for (const product of products) {
     const created = await prisma.product.create({
       data: product as any,
     })
+
+    // Add product image
+    await prisma.productImage.create({
+      data: {
+        productId: created.id,
+        url: '/images/hero-bag.jpg',
+        alt: `${product.name} - Kelp Board Bags`,
+        position: 0,
+      },
+    })
+
     console.log(`✅ Created product: ${product.name}`)
   }
 

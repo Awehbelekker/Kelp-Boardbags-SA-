@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -109,12 +110,25 @@ export default function CustomOrderPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[300px] bg-gradient-to-br from-ocean-teal to-kelp-green flex items-center justify-center text-white">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="relative z-10 container-custom text-center">
-          <h1 className="heading-xl mb-4">Build Your Custom Bag</h1>
-          <p className="body-lg max-w-2xl mx-auto">
-            Design a board bag perfectly tailored to your board's dimensions and your style
+      <section className="relative h-[400px] md:h-[500px] bg-gradient-to-br from-ocean-teal to-kelp-green flex items-center justify-center text-white overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero-bag.jpg"
+            alt="Custom Board Bags"
+            fill
+            className="object-cover opacity-40"
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-kelp-green/60 to-ocean-teal/60" />
+
+        {/* Content */}
+        <div className="relative z-10 container-custom text-center px-4">
+          <h1 className="heading-xl mb-4 text-white drop-shadow-lg">Build Your Custom Bag</h1>
+          <p className="body-lg max-w-2xl mx-auto text-white/95 drop-shadow">
+            Design a board bag perfectly tailored to your board's dimensions and your style.
+            Handcrafted in Cape Town with premium materials.
           </p>
         </div>
       </section>

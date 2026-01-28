@@ -1,4 +1,5 @@
-import ReactPDF from '@react-pdf/renderer'
+import React from 'react'
+import { renderToBuffer } from '@react-pdf/renderer'
 import { InvoiceTemplate } from './invoice-template'
 import { OrderWithRelations } from '@/types'
 
@@ -77,8 +78,8 @@ export async function generateInvoicePDF(order: OrderWithRelations): Promise<Buf
   }
 
   // Generate PDF
-  const pdfDocument = ReactPDF.createElement(InvoiceTemplate, { data: invoiceData })
-  const pdfBuffer = await ReactPDF.renderToBuffer(pdfDocument)
+  const pdfDocument = React.createElement(InvoiceTemplate, { data: invoiceData })
+  const pdfBuffer = await renderToBuffer(pdfDocument)
 
   return pdfBuffer
 }

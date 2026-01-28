@@ -1,0 +1,142 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    KELP BOARD BAGS - ENVIRONMENT VARIABLES                   ║
+║                           QUICK REFERENCE CARD                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📋 COPY THIS TO VERCEL ENVIRONMENT VARIABLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🗄️  DATABASE (REQUIRED)
+────────────────────────────────────────────────────────────────────────────────
+DATABASE_URL=postgresql://user:password@host:5432/kelp_board_bags
+
+📍 Get from: Supabase.com → Settings → Database → Connection String
+   Or: Vercel → Storage → Create Postgres Database
+
+
+🔐 AUTHENTICATION (REQUIRED)
+────────────────────────────────────────────────────────────────────────────────
+NEXTAUTH_URL=https://your-domain.vercel.app
+NEXTAUTH_SECRET=your_32_character_random_string
+
+📍 NEXTAUTH_URL: Your actual Vercel deployment URL
+   NEXTAUTH_SECRET: Generate with: openssl rand -base64 32
+
+
+💳 STRIPE - INTERNATIONAL PAYMENTS (REQUIRED)
+────────────────────────────────────────────────────────────────────────────────
+STRIPE_SECRET_KEY=sk_live_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+📍 Get from: Stripe.com → Developers → API Keys
+   Webhook: Add endpoint https://your-domain.vercel.app/api/payments/stripe/webhook
+
+
+💰 PAYFAST - SOUTH AFRICAN PAYMENTS (REQUIRED)
+────────────────────────────────────────────────────────────────────────────────
+PAYFAST_MERCHANT_ID=your_merchant_id
+PAYFAST_MERCHANT_KEY=your_merchant_key
+PAYFAST_PASSPHRASE=your_passphrase
+NEXT_PUBLIC_PAYFAST_MODE=live
+
+📍 Get from: PayFast.co.za → Settings → Integration
+   ITN URL: https://your-domain.vercel.app/api/payments/payfast/webhook
+
+
+📧 EMAIL - RESEND (REQUIRED)
+────────────────────────────────────────────────────────────────────────────────
+RESEND_API_KEY=re_...
+EMAIL_FROM=orders@kelpboardbags.co.za
+
+📍 Get from: Resend.com → API Keys
+   Verify domain: kelpboardbags.co.za in Resend dashboard
+
+
+☁️  SUPABASE - FILE STORAGE (OPTIONAL)
+────────────────────────────────────────────────────────────────────────────────
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...
+
+📍 Get from: Supabase.com → Settings → API
+
+
+💬 WHATSAPP (OPTIONAL)
+────────────────────────────────────────────────────────────────────────────────
+WHATSAPP_BUSINESS_NUMBER=+27XXXXXXXXX
+WHATSAPP_API_KEY=your_api_key
+
+📍 For simple WhatsApp link, just add the phone number
+
+
+📊 ANALYTICS (OPTIONAL)
+────────────────────────────────────────────────────────────────────────────────
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+
+📍 Get from: Analytics.Google.com → Admin → Data Streams
+
+
+🌐 SITE CONFIG (REQUIRED)
+────────────────────────────────────────────────────────────────────────────────
+NEXT_PUBLIC_URL=https://your-domain.vercel.app
+ADMIN_EMAIL=admin@kelpboardbags.co.za
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ QUICK START CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. ✅ Create Supabase account → Get DATABASE_URL
+2. ✅ Generate NEXTAUTH_SECRET: openssl rand -base64 32
+3. ✅ Create Stripe account → Get API keys
+4. ✅ Create PayFast account → Get merchant credentials
+5. ✅ Create Resend account → Get API key
+6. ✅ Set NEXTAUTH_URL to your Vercel domain
+7. ✅ Add all variables to Vercel → Settings → Environment Variables
+8. ✅ Configure webhooks in Stripe and PayFast dashboards
+9. ✅ Redeploy on Vercel
+
+
+🔧 VERCEL DEPLOYMENT SETTINGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Framework Preset:     Next.js
+Root Directory:       kelp-board-bags
+Build Command:        npm run build
+Output Directory:     (leave empty)
+Install Command:      npm install
+
+
+📝 NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• Use TEST mode for Stripe/PayFast until ready for production
+• All NEXT_PUBLIC_* variables are exposed to the browser
+• Never commit .env.local to Git
+• Rotate NEXTAUTH_SECRET regularly for security
+• Verify domain in Resend before sending production emails
+
+
+🆘 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Database Error:       Check DATABASE_URL format and connection
+Build Failing:        Ensure all REQUIRED variables are set
+404 Error:            Set Root Directory to "kelp-board-bags"
+Payment Not Working:  Verify webhook URLs in Stripe/PayFast
+Email Not Sending:    Verify domain in Resend dashboard
+
+
+📚 FULL DOCUMENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+See ENVIRONMENT_VARIABLES.md for detailed setup instructions
+See VERCEL_DEPLOYMENT.md for deployment guide
+See README.md for project overview
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    Made with 🌊 in Cape Town, South Africa                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+

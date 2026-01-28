@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { ShoppingCart, User, Search, Menu, LogOut, Settings, Package, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -26,13 +27,15 @@ export function Header() {
       <nav className="container-custom">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="font-heading text-2xl font-bold text-kelp-green">
-              Kelp
-            </span>
-            <span className="hidden sm:inline font-heading text-xl text-driftwood">
-              Board Bags
-            </span>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo.svg"
+              alt="Kelp Board Bags"
+              width={180}
+              height={60}
+              className="h-12 w-auto text-kelp-green"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Instagram, Facebook, Mail } from "lucide-react"
 import { footerNav } from "@/config/navigation"
 import { siteConfig } from "@/config/site"
@@ -13,9 +14,13 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-4">
-              <span className="font-heading text-2xl font-bold text-kelp-green">
-                Kelp Board Bags
-              </span>
+              <Image
+                src="/logo.svg"
+                alt="Kelp Board Bags"
+                width={200}
+                height={70}
+                className="h-14 w-auto text-kelp-green"
+              />
             </Link>
             <p className="text-sm text-muted-foreground mb-4 max-w-sm">
               {siteConfig.description}

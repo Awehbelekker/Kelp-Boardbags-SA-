@@ -63,9 +63,7 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium mb-1">Address</p>
                   <p className="text-sm text-muted-foreground">
-                    {siteConfig.business.address.street}<br />
-                    {siteConfig.business.address.city}, {siteConfig.business.address.province}<br />
-                    {siteConfig.business.address.postalCode}
+                    {siteConfig.contact.address}
                   </p>
                 </div>
               </div>

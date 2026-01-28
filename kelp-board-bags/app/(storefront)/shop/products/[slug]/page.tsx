@@ -364,7 +364,7 @@ export default function ProductDetailPage() {
                 {product.weight && (
                   <>
                     <dt className="text-sm font-medium">Weight</dt>
-                    <dd className="text-sm text-muted-foreground">{product.weight} kg</dd>
+                    <dd className="text-sm text-muted-foreground">{product.weight.toString()} kg</dd>
                   </>
                 )}
                 {product.dimensions && (

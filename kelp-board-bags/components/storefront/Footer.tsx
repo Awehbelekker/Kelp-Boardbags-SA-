@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 
 export function Footer() {
   return (
-    <footer className="bg-sand-beige text-foreground">
+    <footer className="bg-[#D4C5B0] text-foreground">
       <div className="container-custom section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Column */}

@@ -1,5 +1,5 @@
 import { Header } from "@/components/storefront/Header"
-import { Footer } from "@/components/storefront/Footer"
+// import { Footer } from "@/components/storefront/Footer"
 
 export default function StorefrontLayout({
   children,
@@ -10,7 +10,10 @@ export default function StorefrontLayout({
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">{children}</main>
-      <Footer />
+      {/* <Footer /> */}
+      <footer className="bg-gray-100 p-4 text-center text-sm">
+        © 2026 Kelp Board Bags
+      </footer>
     </div>
   )
 }

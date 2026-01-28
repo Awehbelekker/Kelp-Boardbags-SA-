@@ -67,7 +67,15 @@ export function createPayFastPayment(data: PayFastPaymentData): {
   url: string
   formData: Record<string, string>
 } {
-  const signature = generatePayFastSignature(data as Record<string, string>)
+  // Convert PayFastPaymentData to Record<string, string> by filtering out undefined values
+  const dataRecord: Record<string, string> = Object.entries(data).reduce((acc, [key, value]) => {
+    if (value !== undefined) {
+      acc[key] = value
+    }
+    return acc
+  }, {} as Record<string, string>)
+
+  const signature = generatePayFastSignature(dataRecord)
 
   const payfastUrl =
     process.env.NEXT_PUBLIC_PAYFAST_MODE === 'live'
@@ -77,7 +85,7 @@ export function createPayFastPayment(data: PayFastPaymentData): {
   return {
     url: payfastUrl,
     formData: {
-      ...data,
+      ...dataRecord,
       signature,
     },
   }

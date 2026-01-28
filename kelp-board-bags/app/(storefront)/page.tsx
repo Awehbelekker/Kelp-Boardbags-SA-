@@ -8,8 +8,19 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[600px] md:h-[700px] bg-gradient-to-br from-kelp-green to-ocean-teal flex items-center justify-center text-white">
-        <div className="absolute inset-0 bg-black/20" />
+      <section className="relative h-[600px] md:h-[700px] flex items-center justify-center text-white overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero-bag.jpg"
+            alt="Kelp Board Bags"
+            fill
+            className="object-cover"
+            priority
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-kelp-green/70 to-ocean-teal/60" />
+        </div>
 
         <div className="relative z-10 container-custom text-center">
           <h1 className="heading-xl mb-6 animate-fade-in">

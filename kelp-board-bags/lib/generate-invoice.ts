@@ -79,7 +79,7 @@ export async function generateInvoicePDF(order: OrderWithRelations): Promise<Buf
 
   // Generate PDF
   const blob = await pdf(
-    React.createElement(InvoiceTemplate, { data: invoiceData })
+    React.createElement(InvoiceTemplate, { data: invoiceData }) as any
   ).toBlob()
 
   // Convert blob to buffer

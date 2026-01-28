@@ -3,6 +3,10 @@ import { prisma } from '@/lib/prisma'
 import { processPayFastWebhook, verifyPayFastHost, PayFastWebhookData } from '@/lib/payfast'
 import { sendOrderConfirmationEmail } from '@/lib/email'
 
+// Route segment config for App Router
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 export async function POST(request: NextRequest) {
   try {
     // Get the host from the request
@@ -74,11 +78,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
-}
-
-// Disable body parsing to get raw body for signature verification
-export const config = {
-  api: {
-    bodyParser: false,
-  },
 }

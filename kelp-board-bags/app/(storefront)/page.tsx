@@ -24,14 +24,14 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-in-up">
-            <Button asChild size="lg" variant="default" className="bg-white text-kelp-green hover:bg-sand-beige">
+            <Button asChild size="lg" variant="default" className="bg-white text-kelp-green hover:bg-sand-beige hover:text-kelp-green">
               <Link href="/shop">
                 Shop All Bags
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
 
-            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+            <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-kelp-green transition-all">
               <Link href="/custom-order">
                 Build Custom Bag
               </Link>

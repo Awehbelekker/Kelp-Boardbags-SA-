@@ -111,9 +111,6 @@ export const authConfig: NextAuthConfig = {
     async signIn({ user }) {
       console.log('User signed in:', user.email)
     },
-    async signOut({ token }) {
-      console.log('User signed out:', token.email)
-    },
   },
 }
 

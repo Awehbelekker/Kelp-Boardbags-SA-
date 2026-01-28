@@ -1,6 +1,5 @@
 import NextAuth, { DefaultSession, NextAuthConfig } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { PrismaAdapter } from '@auth/prisma-adapter'
 import { prisma } from '@/lib/prisma'
 import { compare } from 'bcryptjs'
 import { z } from 'zod'
@@ -26,7 +25,6 @@ const loginSchema = z.object({
 })
 
 export const authConfig: NextAuthConfig = {
-  adapter: PrismaAdapter(prisma),
   session: {
     strategy: 'jwt',
   },

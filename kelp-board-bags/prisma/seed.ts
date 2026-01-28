@@ -401,7 +401,7 @@ async function main() {
 
   for (const product of products) {
     const created = await prisma.product.create({
-      data: product,
+      data: product as any,
     })
 
     // Add placeholder images

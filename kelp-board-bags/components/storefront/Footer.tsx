@@ -19,7 +19,8 @@ export function Footer() {
                 alt="Kelp Board Bags"
                 width={200}
                 height={70}
-                className="h-14 w-auto text-kelp-green"
+                className="h-14 w-auto"
+                priority
               />
             </Link>
             <p className="text-sm text-muted-foreground mb-4 max-w-sm">

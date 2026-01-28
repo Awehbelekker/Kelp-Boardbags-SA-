@@ -10,12 +10,12 @@ declare module 'next-auth' {
   interface Session {
     user: {
       id: string
-      role: 'USER' | 'ADMIN'
+      role: 'CUSTOMER' | 'ADMIN' | 'SUPER_ADMIN'
     } & DefaultSession['user']
   }
 
   interface User {
-    role: 'USER' | 'ADMIN'
+    role: 'CUSTOMER' | 'ADMIN' | 'SUPER_ADMIN'
   }
 }
 
@@ -104,7 +104,7 @@ export const authConfig: NextAuthConfig = {
       // Add user ID and role to session
       if (token && session.user) {
         session.user.id = token.id as string
-        session.user.role = token.role as 'USER' | 'ADMIN'
+        session.user.role = token.role as 'CUSTOMER' | 'ADMIN' | 'SUPER_ADMIN'
       }
       return session
     },

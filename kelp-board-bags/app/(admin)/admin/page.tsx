@@ -31,7 +31,7 @@ async function getStats() {
     // Get customer count
     const customerCount = await prisma.user.count({
       where: {
-        role: 'USER',
+        role: 'CUSTOMER',
       },
     })
 

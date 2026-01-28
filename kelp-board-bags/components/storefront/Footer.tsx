@@ -44,6 +44,8 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="text-driftwood hover:text-kelp-green transition-colors"
                 aria-label="Facebook"
+              >
+                <Facebook className="h-5 w-5" />
               </a>
               <a
                 href={`mailto:${siteConfig.contact.email}`}

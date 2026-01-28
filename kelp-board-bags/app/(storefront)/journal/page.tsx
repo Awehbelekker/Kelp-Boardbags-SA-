@@ -23,7 +23,7 @@ const blogPosts = [
   {
     id: 2,
     title: 'Sustainable Materials: Our Commitment to the Ocean',
-    excerpt: 'Learn about the eco-friendly materials we use and how we're working to reduce our environmental impact while protecting your boards.',
+    excerpt: 'Learn about the eco-friendly materials we use and how we are working to reduce our environmental impact while protecting your boards.',
     image: '/images/hero-bag.jpg',
     category: 'Sustainability',
     date: '2026-01-10',

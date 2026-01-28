@@ -1,23 +1,23 @@
 export const siteConfig = {
   name: 'Kelp Board Bags',
   description:
-    'Premium, handcrafted surfboard bags from Cape Town. Sustainable, custom-made board bags for surfers who care about quality and the environment.',
+    'Custom-built surfboard bags created in Cape Town, South Africa. Specializing in Logs, XXL boards, SUPs, Foilboards, Kiteboards, and Waveskies. Premium quality, handcrafted protection for your boards.',
   url: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
   ogImage: '/images/og-image.jpg',
   links: {
-    instagram: 'https://instagram.com/kelpboardbags',
+    instagram: 'https://www.instagram.com/kelp_boardbags_ct_sa',
     facebook: 'https://facebook.com/kelpboardbags',
-    whatsapp: 'https://wa.me/27XXXXXXXXX',
+    whatsapp: 'https://wa.me/27719363070',
   },
   contact: {
-    email: 'hello@kelpboardbags.co.za',
-    phone: '+27 XX XXX XXXX',
-    whatsapp: '+27XXXXXXXXX',
-    address: 'Cape Town, South Africa',
+    email: 'info@kelpboardbags.co.za',
+    phone: '+27 71 936 3070',
+    whatsapp: '+27719363070',
+    address: 'Unit 2, 39 Gray Rd, Paarden Island, Cape Town, South Africa',
   },
   business: {
     name: 'Kelp Board Bags',
-    legalName: 'Kelp Board Bags (Pty) Ltd',
+    legalName: 'Kelp Board Bags',
     vatNumber: 'XXXXXXXXXX',
     registrationNumber: 'XXXX/XXXXXX/XX',
   },

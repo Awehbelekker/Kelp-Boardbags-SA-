@@ -17,9 +17,9 @@ export function Footer() {
               <Image
                 src="/logo.svg"
                 alt="Kelp Board Bags"
-                width={280}
-                height={95}
-                className="h-20 w-auto"
+                width={350}
+                height={120}
+                className="h-24 w-auto"
                 priority
               />
             </Link>

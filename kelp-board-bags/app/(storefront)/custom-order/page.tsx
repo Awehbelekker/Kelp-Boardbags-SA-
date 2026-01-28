@@ -56,6 +56,56 @@ export default function CustomOrderPage() {
     return Math.round(basePrice * lengthMultiplier + featuresCost)
   }
 
+  const generateWhatsAppMessage = () => {
+    const parts = [
+      "🏄 *Custom Board Bag Quote Request*",
+      "",
+      "*Board Specifications:*",
+    ]
+
+    if (formData.boardType) parts.push(`• Board Type: ${formData.boardType}`)
+    if (formData.length) parts.push(`• Length: ${formData.length} ft`)
+    if (formData.width) parts.push(`• Width: ${formData.width} inches`)
+    if (formData.thickness) parts.push(`• Thickness: ${formData.thickness} inches`)
+
+    if (formData.color || formData.padding || formData.features.length > 0) {
+      parts.push("")
+      parts.push("*Customization:*")
+      if (formData.color) parts.push(`• Color: ${formData.color}`)
+      if (formData.padding) parts.push(`• Padding: ${formData.padding}`)
+      if (formData.features.length > 0) {
+        parts.push(`• Features: ${formData.features.join(', ')}`)
+      }
+    }
+
+    if (formData.name || formData.email || formData.phone) {
+      parts.push("")
+      parts.push("*Contact Details:*")
+      if (formData.name) parts.push(`• Name: ${formData.name}`)
+      if (formData.email) parts.push(`• Email: ${formData.email}`)
+      if (formData.phone) parts.push(`• Phone: ${formData.phone}`)
+    }
+
+    if (formData.additionalNotes) {
+      parts.push("")
+      parts.push("*Additional Notes:*")
+      parts.push(formData.additionalNotes)
+    }
+
+    parts.push("")
+    parts.push(`*Estimated Price: R${estimatedPrice().toLocaleString()}*`)
+    parts.push("")
+    parts.push("Please provide a detailed quote and timeline for this custom bag. Thank you!")
+
+    return parts.join('\n')
+  }
+
+  const getWhatsAppLink = () => {
+    const message = generateWhatsAppMessage()
+    const whatsappNumber = siteConfig.contact.whatsapp.replace(/\D/g, '')
+    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
+  }
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -299,19 +349,25 @@ export default function CustomOrderPage() {
               <CardContent className="pt-6">
                 <MessageCircle className="h-10 w-10 text-kelp-green mb-3" />
                 <h3 className="font-heading font-semibold mb-2">
-                  Prefer to Chat?
+                  Get Instant Quote via WhatsApp
                 </h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Contact us on WhatsApp for instant quotes and personalized assistance.
+                  {formData.boardType || formData.length
+                    ? "Send your specifications directly to us for a quick quote!"
+                    : "Fill in your board details above, then click to send via WhatsApp for instant assistance."}
                 </p>
-                <Button asChild variant="outline" className="w-full">
+                <Button
+                  asChild
+                  variant={formData.boardType || formData.length ? "default" : "outline"}
+                  className="w-full"
+                >
                   <a
-                    href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, '')}`}
+                    href={getWhatsAppLink()}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
-                    Chat on WhatsApp
+                    {formData.boardType || formData.length ? "Send Quote Request" : "Chat on WhatsApp"}
                   </a>
                 </Button>
               </CardContent>

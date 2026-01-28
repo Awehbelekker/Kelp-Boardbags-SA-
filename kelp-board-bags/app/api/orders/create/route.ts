@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { generateOrderNumber } from '@/lib/utils'
 import { generatePayFastSignature, createPayFastPayment } from '@/lib/payfast'
 import { createStripeCheckout } from '@/lib/stripe'
+import { createYocoCheckout } from '@/lib/yoco'
 import { siteConfig } from '@/config/site'
 
 export async function POST(request: NextRequest) {
@@ -93,7 +94,24 @@ export async function POST(request: NextRequest) {
     let paymentUrl = ''
     let whatsappUrl = ''
 
-    if (paymentMethod === 'PAYFAST') {
+    if (paymentMethod === 'YOCO') {
+      // Create Yoco checkout session
+      const yocoCheckout = await createYocoCheckout({
+        amount: Math.round(cart.total * 100), // Convert to cents
+        currency: 'ZAR',
+        successUrl: `${siteConfig.url}/checkout/success?order=${orderNumber}`,
+        cancelUrl: `${siteConfig.url}/checkout/cancelled?order=${orderNumber}`,
+        failureUrl: `${siteConfig.url}/checkout/failed?order=${orderNumber}`,
+        metadata: {
+          orderNumber,
+          orderId: order.id,
+          customerEmail: email,
+          customerName: `${shippingFirstName} ${shippingLastName}`,
+        },
+      })
+
+      paymentUrl = yocoCheckout.redirectUrl
+    } else if (paymentMethod === 'PAYFAST') {
       // Create PayFast payment
       const payfastData = {
         merchant_id: process.env.PAYFAST_MERCHANT_ID!,

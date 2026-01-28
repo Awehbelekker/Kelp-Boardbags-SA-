@@ -17,7 +17,7 @@ export default function CheckoutPage() {
   const router = useRouter()
   const { items, cart, clearCart } = useCart()
   const [isProcessing, setIsProcessing] = useState(false)
-  const [paymentMethod, setPaymentMethod] = useState<'PAYFAST' | 'STRIPE' | null>(null)
+  const [paymentMethod, setPaymentMethod] = useState<'YOCO' | 'PAYFAST' | 'STRIPE' | null>(null)
 
   const {
     register,
@@ -28,7 +28,7 @@ export default function CheckoutPage() {
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
       sameAsShipping: true,
-      paymentMethod: 'PAYFAST',
+      paymentMethod: 'YOCO',
     },
   })
 
@@ -66,7 +66,10 @@ export default function CheckoutPage() {
       }
 
       // Process payment based on method
-      if (data.paymentMethod === 'PAYFAST') {
+      if (data.paymentMethod === 'YOCO') {
+        // Redirect to Yoco checkout
+        window.location.href = result.data.paymentUrl
+      } else if (data.paymentMethod === 'PAYFAST') {
         // Redirect to PayFast
         window.location.href = result.data.paymentUrl
       } else if (data.paymentMethod === 'STRIPE') {
@@ -313,6 +316,28 @@ export default function CheckoutPage() {
                 <CardTitle>Payment Method</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
+                {/* Yoco - Recommended for SA */}
+                <label className="flex items-center space-x-3 p-4 border-2 border-kelp-green rounded-lg cursor-pointer hover:bg-sand-beige/30 relative">
+                  <input
+                    type="radio"
+                    {...register('paymentMethod')}
+                    value="YOCO"
+                    className="text-kelp-green focus:ring-kelp-green"
+                  />
+                  <CreditCard className="w-5 h-5 text-kelp-green" />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="font-medium">Yoco</p>
+                      <span className="text-xs bg-kelp-green text-white px-2 py-0.5 rounded-full">
+                        Recommended
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Card, Instant EFT, SnapScan (South African customers)
+                    </p>
+                  </div>
+                </label>
+
                 <label className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:bg-sand-beige/30">
                   <input
                     type="radio"

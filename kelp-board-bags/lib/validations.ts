@@ -90,7 +90,7 @@ export const checkoutSchema = z.object({
   customerNotes: z.string().optional(),
 
   // Payment
-  paymentMethod: z.enum(['PAYFAST', 'STRIPE', 'WHATSAPP']),
+  paymentMethod: z.enum(['YOCO', 'PAYFAST', 'STRIPE', 'WHATSAPP']),
 })
 
 export const addressSchema = z.object({

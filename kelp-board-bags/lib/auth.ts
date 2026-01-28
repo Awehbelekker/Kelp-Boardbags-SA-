@@ -2,7 +2,7 @@ import NextAuth, { DefaultSession, NextAuthConfig } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { prisma } from '@/lib/prisma'
-import { compare } from 'bcrypt'
+import { compare } from 'bcryptjs'
 import { z } from 'zod'
 
 // Extend the built-in session type

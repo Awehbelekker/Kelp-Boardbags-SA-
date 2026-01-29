@@ -29,12 +29,16 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     console.error('Failed to fetch categories:', error)
+    console.error('Error details:', error instanceof Error ? error.message : 'Unknown error')
+    console.error('Error stack:', error instanceof Error ? error.stack : '')
+
     return NextResponse.json(
       {
         success: false,
         error: {
-          message: 'Failed to fetch categories',
+          message: error instanceof Error ? error.message : 'Failed to fetch categories',
           code: 'FETCH_ERROR',
+          details: process.env.NODE_ENV === 'development' ? String(error) : undefined,
         },
       },
       { status: 500 }

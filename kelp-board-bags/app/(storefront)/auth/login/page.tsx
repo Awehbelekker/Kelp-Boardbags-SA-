@@ -83,12 +83,13 @@ function LoginForm() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-                  <Link
+                  {/* TODO: Implement forgot password functionality */}
+                  {/* <Link
                     href="/auth/forgot-password"
                     className="text-sm text-kelp-green hover:underline"
                   >
                     Forgot password?
-                  </Link>
+                  </Link> */}
                 </div>
                 <Input
                   id="password"

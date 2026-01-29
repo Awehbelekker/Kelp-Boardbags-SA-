@@ -402,7 +402,7 @@ Add this to your cart for national shipping.`,
     await prisma.productImage.create({
       data: {
         productId: created.id,
-        url: '/images/products/product-1.jpg',
+        url: '/images/hero-bag.jpg',
         alt: `${product.name} - Kelp Board Bags`,
         position: 0,
       },

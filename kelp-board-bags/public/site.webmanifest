@@ -1,0 +1,40 @@
+{
+  "name": "Kelp Board Bags",
+  "short_name": "Kelp Bags",
+  "description": "Premium handcrafted surfboard bags made in Cape Town. Custom board bags for surfers, SUP, foil, and waveski enthusiasts.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2C5F3A",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["shopping", "lifestyle", "sports"],
+  "lang": "en-ZA",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
+}
+

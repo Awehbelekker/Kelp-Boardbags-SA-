@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import { ProductCard } from "@/components/storefront/ProductCard"
 import { ProductFilters, FilterState } from "@/components/storefront/ProductFilters"
 import { Button } from "@/components/ui/button"
@@ -11,14 +12,26 @@ import { ProductWithRelations } from "@/types"
 type SortOption = 'newest' | 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc'
 
 export default function ShopPage() {
+  const searchParams = useSearchParams()
+  const categoryFromUrl = searchParams.get('category')
+
   const [products, setProducts] = useState<ProductWithRelations[]>([])
   const [categories, setCategories] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [filters, setFilters] = useState<FilterState>({})
+  const [filters, setFilters] = useState<FilterState>({
+    category: categoryFromUrl || undefined
+  })
   const [sort, setSort] = useState<SortOption>('newest')
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+
+  // Update filters when URL category changes
+  useEffect(() => {
+    if (categoryFromUrl) {
+      setFilters(prev => ({ ...prev, category: categoryFromUrl }))
+    }
+  }, [categoryFromUrl])
 
   // Fetch categories
   useEffect(() => {

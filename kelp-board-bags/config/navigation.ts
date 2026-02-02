@@ -52,22 +52,48 @@ export const shopNav: NavItemWithChildren[] = [
     items: [
       {
         title: 'Shortboard Bags',
-        href: '/shop/board-bags/shortboard',
+        href: '/shop?category=shortboard-bags',
         items: [],
       },
       {
         title: 'Longboard Bags',
-        href: '/shop/board-bags/longboard',
+        href: '/shop?category=longboard-bags',
         items: [],
       },
       {
         title: 'Fish Bags',
-        href: '/shop/board-bags/fish',
+        href: '/shop?category=fish-bags',
         items: [],
       },
       {
         title: 'SUP Bags',
-        href: '/shop/board-bags/sup',
+        href: '/shop?category=sup-bags',
+        items: [],
+      },
+    ],
+  },
+  {
+    title: 'Specialty Bags',
+    href: '/shop/specialty',
+    items: [
+      {
+        title: 'XXL Board Bags',
+        href: '/shop?category=xxl-board-bags',
+        items: [],
+      },
+      {
+        title: 'Foilboard Bags',
+        href: '/shop?category=foilboard-bags',
+        items: [],
+      },
+      {
+        title: 'Kiteboard Bags',
+        href: '/shop?category=kiteboard-bags',
+        items: [],
+      },
+      {
+        title: 'Waveski Bags',
+        href: '/shop?category=waveski-bags',
         items: [],
       },
     ],
@@ -303,8 +329,9 @@ export const accountNav: NavItem[] = [
 export const footerNav = {
   shop: [
     { title: 'All Products', href: '/shop' },
-    { title: 'Board Bags', href: '/shop/board-bags' },
-    { title: 'Accessories', href: '/shop/accessories' },
+    { title: 'Longboard Bags', href: '/shop?category=longboard-bags' },
+    { title: 'SUP Bags', href: '/shop?category=sup-bags' },
+    { title: 'Specialty Bags', href: '/shop?category=xxl-board-bags' },
     { title: 'Custom Orders', href: '/custom-order' },
   ],
   company: [

@@ -2,7 +2,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowRight, Leaf, Heart, Sparkles } from "lucide-react"
+import { ArrowRight, Leaf, Heart, Sparkles, Waves, Wind, Anchor, MessageCircle } from "lucide-react"
+import { siteConfig } from "@/config/site"
 
 export default function HomePage() {
   return (
@@ -24,14 +25,16 @@ export default function HomePage() {
 
         <div className="relative z-10 container-custom text-center">
           <h1 className="heading-xl mb-6 animate-fade-in">
-            Protect Your Board.
+            Custom Bags for Boards
             <br />
-            <span className="text-sand-beige">Respect the Ocean.</span>
+            <span className="text-sand-beige">That Don't Fit Anywhere Else</span>
           </h1>
 
-          <p className="body-lg mb-8 max-w-2xl mx-auto text-white/90 animate-slide-in-up">
-            Handcrafted, sustainable surfboard bags made in Cape Town.
-            Built to last, designed to protect.
+          <p className="body-lg mb-4 max-w-2xl mx-auto text-white/90 animate-slide-in-up">
+            Specializing in Logs, XXL Boards, SUPs & Specialty Boards
+          </p>
+          <p className="body-base mb-8 max-w-2xl mx-auto text-white/80 animate-slide-in-up">
+            Handcrafted in Cape Town, South Africa
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-in-up">
@@ -94,6 +97,46 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Board Specialties Section */}
+      <section className="section-padding bg-ocean-teal/10">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="heading-lg mb-4">We Specialize In</h2>
+            <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+              Bags for boards that don't fit standard sizes
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {[
+              { name: 'Longboards', desc: '9\'0" - 12\'0"', icon: Waves },
+              { name: 'XXL Boards', desc: 'Custom sizes', icon: Anchor },
+              { name: 'SUPs', desc: 'Paddleboards', icon: Wind },
+              { name: 'Foilboards', desc: 'Hydrofoil', icon: Sparkles },
+              { name: 'Kiteboards', desc: 'All styles', icon: Wind },
+              { name: 'Waveskis', desc: 'Specialty', icon: Waves },
+            ].map((item) => (
+              <Link key={item.name} href="/custom-order" className="group">
+                <Card className="text-center p-4 h-full border-ocean-teal/20 hover:border-ocean-teal hover:shadow-lg transition-all">
+                  <item.icon className="h-8 w-8 mx-auto text-ocean-teal mb-2 group-hover:scale-110 transition-transform" />
+                  <h3 className="font-semibold text-sm mb-1">{item.name}</h3>
+                  <p className="text-xs text-muted-foreground">{item.desc}</p>
+                </Card>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Button asChild size="lg" className="bg-ocean-teal hover:bg-ocean-teal/90">
+              <Link href="/custom-order">
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Get a Custom Quote
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Products Section */}
       <section className="section-padding bg-sand-beige/30">
         <div className="container-custom">
@@ -146,17 +189,29 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="section-padding bg-kelp-green text-white">
         <div className="container-custom text-center">
-          <h2 className="heading-lg mb-4">Need a Custom Bag?</h2>
+          <h2 className="heading-lg mb-4">Can't Find Your Size?</h2>
           <p className="body-lg mb-8 max-w-2xl mx-auto text-white/90">
-            We craft custom bags for any board size or shape. Tell us what you need,
+            We craft custom bags for any board size or shape. Tell us your dimensions,
             and we'll create the perfect protection for your ride.
           </p>
-          <Button asChild size="lg" variant="default" className="bg-white text-kelp-green hover:bg-sand-beige">
-            <Link href="/custom-order">
-              Start Custom Order
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" variant="default" className="bg-white text-kelp-green hover:bg-sand-beige">
+              <Link href="/custom-order">
+                Custom Order Form
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-kelp-green">
+              <a
+                href={`${siteConfig.links.whatsapp}?text=${encodeURIComponent("Hi! I'd like a custom quote for a board bag. My board dimensions are: ")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Quick Quote via WhatsApp
+              </a>
+            </Button>
+          </div>
         </div>
       </section>
 

@@ -20,43 +20,57 @@ async function main() {
   })
   console.log('✅ Admin user created')
 
-  // Create categories
+  // Create categories - Including specialty board categories
   const categories = [
     {
       name: 'Shortboard Bags',
       slug: 'shortboard-bags',
-      description:
-        'Lightweight, compact bags perfect for your high-performance shortboards. Available in various sizes from 5\'6" to 6\'6".',
+      description: 'Lightweight, compact bags perfect for your high-performance shortboards. Available in various sizes from 5\'6" to 6\'6".',
     },
     {
       name: 'Longboard Bags',
       slug: 'longboard-bags',
-      description:
-        'Spacious, well-padded bags designed for longboards. Extra length and reinforced construction for maximum protection.',
+      description: 'Spacious, well-padded bags designed for longboards and logs 9\'0" - 12\'0". Extra length and reinforced construction.',
     },
     {
       name: 'Fish Bags',
       slug: 'fish-bags',
-      description:
-        'Custom-sized bags for fish and alternative board shapes. Wider fit with reinforced tail protection.',
+      description: 'Custom-sized bags for fish and alternative board shapes. Wider fit with reinforced tail protection.',
     },
     {
       name: 'SUP Bags',
       slug: 'sup-bags',
-      description:
-        'Heavy-duty bags for stand-up paddleboards. Extra padding and reinforced handles for larger boards.',
+      description: 'Heavy-duty bags for stand-up paddleboards. Extra padding and reinforced handles for boards up to 14\'0".',
+    },
+    {
+      name: 'XXL Board Bags',
+      slug: 'xxl-board-bags',
+      description: 'Custom-built bags for oversized boards. When standard sizes just won\'t cut it, we build to your exact specifications.',
+    },
+    {
+      name: 'Foilboard Bags',
+      slug: 'foilboard-bags',
+      description: 'Specialized bags for hydrofoil boards. Designed to protect both board and foil components during transport.',
+    },
+    {
+      name: 'Kiteboard Bags',
+      slug: 'kiteboard-bags',
+      description: 'Durable bags for kiteboards of all styles. Compact design with reinforced edges for twin-tip and directional boards.',
+    },
+    {
+      name: 'Waveski Bags',
+      slug: 'waveski-bags',
+      description: 'Specialty bags for waveskis. Custom dimensions to fit these unique watercraft with proper padding and protection.',
     },
     {
       name: 'Travel Bags',
       slug: 'travel-bags',
-      description:
-        'Ultimate protection for traveling surfers. Triple-padded with multiple board capacity and lockable zippers.',
+      description: 'Ultimate protection for traveling surfers. Triple-padded with multiple board capacity and lockable zippers.',
     },
     {
       name: 'Accessories',
       slug: 'accessories',
-      description:
-        'Essential surf accessories including fin cases, wax pouches, and board socks.',
+      description: 'Essential surf accessories including fin cases, wax pouches, and board socks.',
     },
   ]
 

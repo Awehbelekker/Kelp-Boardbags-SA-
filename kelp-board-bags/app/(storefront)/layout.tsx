@@ -1,4 +1,5 @@
 import { Header } from "@/components/storefront/Header"
+import { WhatsAppButton } from "@/components/storefront/WhatsAppButton"
 // import { Footer } from "@/components/storefront/Footer"
 
 export default function StorefrontLayout({
@@ -14,6 +15,8 @@ export default function StorefrontLayout({
       <footer className="bg-gray-100 p-4 text-center text-sm">
         © 2026 Kelp Board Bags
       </footer>
+      {/* Floating WhatsApp button for quick customer contact */}
+      <WhatsAppButton />
     </div>
   )
 }

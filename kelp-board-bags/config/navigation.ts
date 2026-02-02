@@ -26,8 +26,8 @@ export const mainNav: MainNavItem[] = [
     href: '/custom-order',
   },
   {
-    title: 'Journal',
-    href: '/journal',
+    title: 'Size Guide',
+    href: '/size-guide',
   },
   {
     title: 'About',
@@ -315,7 +315,7 @@ export const footerNav = {
   ],
   support: [
     { title: 'Shipping & Returns', href: '/support/shipping' },
-    { title: 'Size Guide', href: '/support/size-guide' },
+    { title: 'Size Guide', href: '/size-guide' },
     { title: 'Care Instructions', href: '/support/care' },
     { title: 'FAQ', href: '/support/faq' },
   ],

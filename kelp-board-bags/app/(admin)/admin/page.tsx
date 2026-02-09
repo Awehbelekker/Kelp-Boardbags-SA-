@@ -1,204 +1,146 @@
 import { Suspense } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { DollarSign, ShoppingCart, Package, Users } from "lucide-react"
-import { prisma } from "@/lib/prisma"
+import { DollarSign, ShoppingCart, Package, Users, TrendingUp, Loader2 } from "lucide-react"
 import { formatPrice } from "@/lib/utils"
+import {
+  getDashboardStats,
+  getAlertCounts,
+  getOrderStatusBreakdown,
+  getTopProducts,
+  getLowStockProducts,
+  getRevenueChart,
+  getRecentOrders,
+} from "@/lib/dashboard"
+import {
+  StatsCard,
+  AlertsPanel,
+  QuickActions,
+  TopProductsList,
+  LowStockList,
+  RevenueChart,
+  OrderStatusChart,
+  RecentOrdersList,
+} from "@/components/admin/dashboard"
 
-async function getStats() {
-  try {
-    // Get total revenue
-    const orders = await prisma.order.findMany({
-      where: {
-        paymentStatus: 'PAID',
-      },
-      select: {
-        total: true,
-      },
-    })
-
-    const totalRevenue = orders.reduce((sum, order) => sum + Number(order.total), 0)
-
-    // Get order count
-    const orderCount = await prisma.order.count()
-
-    // Get product count
-    const productCount = await prisma.product.count({
-      where: {
-        status: 'ACTIVE',
-      },
-    })
-
-    // Get customer count
-    const customerCount = await prisma.user.count({
-      where: {
-        role: 'CUSTOMER',
-      },
-    })
-
-    return {
-      totalRevenue,
-      orderCount,
-      productCount,
-      customerCount,
-    }
-  } catch (error) {
-    console.error('Failed to fetch stats:', error)
-    return {
-      totalRevenue: 0,
-      orderCount: 0,
-      productCount: 0,
-      customerCount: 0,
-    }
-  }
+// Loading skeleton for cards
+function CardSkeleton() {
+  return (
+    <div className="h-32 rounded-lg border bg-card animate-pulse">
+      <div className="p-6">
+        <div className="h-4 w-24 bg-muted rounded mb-4" />
+        <div className="h-8 w-32 bg-muted rounded" />
+      </div>
+    </div>
+  )
 }
 
-async function getRecentOrders() {
-  try {
-    const orders = await prisma.order.findMany({
-      take: 5,
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        user: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
-      },
-    })
-
-    return orders
-  } catch (error) {
-    console.error('Failed to fetch recent orders:', error)
-    return []
-  }
+function ChartSkeleton() {
+  return (
+    <div className="h-[380px] rounded-lg border bg-card animate-pulse flex items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+    </div>
+  )
 }
 
 export default async function AdminDashboardPage() {
-  const stats = await getStats()
-  const recentOrders = await getRecentOrders()
+  // Fetch all dashboard data in parallel
+  const [stats, alerts, orderStatus, topProducts, lowStock, revenueData, recentOrders] =
+    await Promise.all([
+      getDashboardStats(),
+      getAlertCounts(),
+      getOrderStatusBreakdown(),
+      getTopProducts(5),
+      getLowStockProducts(5),
+      getRevenueChart(30),
+      getRecentOrders(5),
+    ])
 
   return (
     <div className="space-y-8">
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-        <p className="text-muted-foreground">
-          Overview of your store performance
-        </p>
-      </div>
-
-      {/* Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Revenue
-            </CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {formatPrice(stats.totalRevenue, 'ZAR')}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              From paid orders
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+          <p className="text-muted-foreground">
+            Overview of your store performance
+          </p>
+        </div>
+        {stats.todayOrders > 0 && (
+          <div className="text-right">
+            <p className="text-sm text-muted-foreground">Today</p>
+            <p className="text-lg font-bold text-green-600">
+              {formatPrice(stats.todayRevenue, 'ZAR')} ({stats.todayOrders} orders)
             </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Orders
-            </CardTitle>
-            <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {stats.orderCount}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Total orders
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Products
-            </CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {stats.productCount}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Active products
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Customers
-            </CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {stats.customerCount}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Registered users
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Recent Orders */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Orders</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {recentOrders.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No orders yet</p>
-            ) : (
-              <div className="space-y-4">
-                {recentOrders.map((order) => (
-                  <div
-                    key={order.id}
-                    className="flex items-center justify-between border-b pb-4 last:border-0"
-                  >
-                    <div>
-                      <p className="text-sm font-medium">
-                        {order.orderNumber}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {order.email}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-medium">
-                        {formatPrice(Number(order.total), order.currency)}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {order.status}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
-        </CardContent>
-      </Card>
+        )}
+      </div>
+
+      {/* Stats Grid - 4 main metrics with trends */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <StatsCard
+          title="Total Revenue"
+          value={formatPrice(stats.totalRevenue, 'ZAR')}
+          icon={DollarSign}
+          trend={stats.revenueChange}
+          trendLabel="vs last month"
+        />
+        <StatsCard
+          title="Orders"
+          value={stats.totalOrders}
+          icon={ShoppingCart}
+          trend={stats.ordersChange}
+          trendLabel="vs last month"
+        />
+        <StatsCard
+          title="Avg Order Value"
+          value={formatPrice(stats.averageOrderValue, 'ZAR')}
+          icon={TrendingUp}
+          trend={stats.aovChange}
+          trendLabel="vs last month"
+        />
+        <StatsCard
+          title="Customers"
+          value={stats.totalCustomers}
+          icon={Users}
+          trend={stats.customersChange}
+          trendLabel="vs last month"
+        />
+      </div>
+
+      {/* Revenue Chart and Alerts Row */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <Suspense fallback={<ChartSkeleton />}>
+            <RevenueChart data={revenueData} />
+          </Suspense>
+        </div>
+        <div className="space-y-6">
+          <AlertsPanel alerts={alerts} />
+          <QuickActions />
+        </div>
+      </div>
+
+      {/* Orders and Products Row */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <RecentOrdersList orders={recentOrders} />
+        </div>
+        <div className="space-y-6">
+          <TopProductsList products={topProducts} />
+          {lowStock.length > 0 && <LowStockList products={lowStock} />}
+        </div>
+      </div>
+
+      {/* Order Status Chart */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <OrderStatusChart data={orderStatus} />
+        <StatsCard
+          title="Active Products"
+          value={stats.activeProducts}
+          icon={Package}
+          subtitle="In your catalog"
+          className="h-full"
+        />
+      </div>
     </div>
   )
 }

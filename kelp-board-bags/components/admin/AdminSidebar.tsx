@@ -12,6 +12,7 @@ import {
   Settings,
   BarChart3,
   MessageSquare,
+  LayoutTemplate,
 } from "lucide-react"
 
 const navigation = [
@@ -49,6 +50,11 @@ const navigation = [
     name: "Content",
     href: "/admin/content",
     icon: FileText,
+  },
+  {
+    name: "Pages",
+    href: "/admin/pages",
+    icon: LayoutTemplate,
   },
   {
     name: "Settings",

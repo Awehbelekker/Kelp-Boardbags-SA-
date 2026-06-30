@@ -19,7 +19,7 @@ interface AlertItem {
 }
 
 export function AlertsPanel({ alerts }: AlertsPanelProps) {
-  const alertItems: AlertItem[] = [
+  const baseAlerts: AlertItem[] = [
     {
       label: "Failed Payments",
       count: alerts.failedPayments,
@@ -55,7 +55,8 @@ export function AlertsPanel({ alerts }: AlertsPanelProps) {
       icon: <Package className="h-4 w-4" />,
       priority: "medium",
     },
-  ].filter(item => item.count > 0)
+  ]
+  const alertItems = baseAlerts.filter(item => item.count > 0)
 
   const totalAlerts = alertItems.reduce((sum, item) => sum + item.count, 0)
   const hasCritical = alertItems.some(item => item.priority === "critical" && item.count > 0)
